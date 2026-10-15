@@ -1,0 +1,83 @@
+{
+  "data_label": "synthetic inverse-demand intercept, not observed sales",
+  "generator": "A_t = 85 + trend*t + seasonality*sin(2*pi*t/12) + u_t; u_t = 0.35*u_(t-1) + innovation_t",
+  "main_forecast": {
+    "train_size": 72,
+    "test_size": 24,
+    "sarimax_order": [
+      1,
+      0,
+      0
+    ],
+    "seasonal_order": [
+      0,
+      0,
+      0,
+      12
+    ],
+    "exog": [
+      "time_in_years",
+      "annual_sine",
+      "annual_cosine"
+    ],
+    "converged": true,
+    "aic": 354.6057763326975,
+    "ljung_box_lag12_pvalue": 0.32219270697770325,
+    "jarque_bera_pvalue": 0.8241886750831058,
+    "test_95pct_interval_coverage": 1.0,
+    "sarimax": {
+      "mae": 1.6537498555664456,
+      "rmse": 2.0940863414348287
+    },
+    "seasonal_naive": {
+      "mae": 3.7154915172780263,
+      "rmse": 4.332686244338427
+    }
+  },
+  "fixed_demand": {
+    "A": 85.0,
+    "n_firms": 3,
+    "b": 0.08,
+    "c": 12.0,
+    "learning_rate": 0.55,
+    "theoretical_quantity_per_firm": 228.125,
+    "initial_distance": 85.94318163036553,
+    "final_distance": 7.597137306397868e-10,
+    "linear_update_eigenvalues": {
+      "common_mode": -0.10000000000000009,
+      "difference_mode": 0.725,
+      "stable_interior": true
+    }
+  },
+  "changing_demand": {
+    "mean_tracking_distance": 11.419780356043495,
+    "final_tracking_distance": 3.956232634516815
+  },
+  "experiment_seeds": [
+    11,
+    23,
+    37
+  ],
+  "scenarios": {
+    "baseline": {
+      "trend": 0.18,
+      "seasonality": 8.0,
+      "volatility": 3.0
+    },
+    "high_trend": {
+      "trend": 0.36,
+      "seasonality": 8.0,
+      "volatility": 3.0
+    },
+    "high_seasonality": {
+      "trend": 0.18,
+      "seasonality": 14.0,
+      "volatility": 3.0
+    },
+    "high_volatility": {
+      "trend": 0.18,
+      "seasonality": 8.0,
+      "volatility": 7.0
+    }
+  }
+}
