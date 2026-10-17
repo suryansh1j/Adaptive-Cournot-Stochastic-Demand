@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A simple explanation of a demand forecasting and three-firm competition simulation.">
+  <title>Forecasting demand & firm competition</title>
+  <style>
+    :root { color-scheme: light; --ink:#17262c; --muted:#53666c; --line:#d5e1de; --accent:#176e68; --paper:#f7faf8; --white:#fff; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    a { color:var(--accent); }
+    .wrap { width:min(1100px,calc(100% - 40px)); margin:auto; }
+    header { background:var(--white); border-bottom:1px solid var(--line); }
+    .top { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 0; }
+    .brand { font-weight:750; color:var(--ink); text-decoration:none; letter-spacing:-.02em; }
+    nav { display:flex; gap:18px; flex-wrap:wrap; font-size:.9rem; }
+    nav a { color:var(--muted); text-decoration:none; }
+    nav a:hover,nav a:focus-visible { color:var(--accent); text-decoration:underline; }
+    .hero { padding:76px 0 62px; background:linear-gradient(135deg,#e3f4eb,#f7faf8 70%); }
+    .eyebrow { color:var(--accent); font-size:.79rem; font-weight:750; letter-spacing:.11em; text-transform:uppercase; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { max-width:760px; font-size:clamp(2.5rem,6vw,4.6rem); line-height:1.08; letter-spacing:-.055em; margin-bottom:22px; }
+    h2 { font-size:clamp(1.8rem,3vw,2.4rem); line-height:1.2; letter-spacing:-.035em; margin-bottom:12px; }
+    h3 { font-size:1.08rem; line-height:1.3; margin-bottom:8px; }
+    .lead { max-width:710px; color:#385159; font-size:1.2rem; line-height:1.55; }
+    .note { display:inline-block; padding:7px 12px; border:1px solid #b8d8cd; border-radius:999px; color:#315d54; background:#f5fcf8; font-size:.83rem; font-weight:650; }
+    section { padding:68px 0; }
+    .section-intro { max-width:700px; color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:30px; }
+    .card { background:var(--white); border:1px solid var(--line); border-radius:15px; padding:24px; }
+    .step { color:var(--accent); font-size:.8rem; font-weight:800; letter-spacing:.08em; }
+    .card p:last-child { margin-bottom:0; color:var(--muted); }
+    .band { background:#eaf3ef; border-block:1px solid var(--line); }
+    .metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:28px; }
+    .metric { background:var(--white); border:1px solid var(--line); border-radius:15px; padding:24px; }
+    .metric strong { display:block; color:var(--accent); font-size:2rem; line-height:1.2; letter-spacing:-.04em; }
+    .metric span { display:block; color:var(--muted); font-size:.91rem; margin-top:7px; }
+    .charts { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:28px; }
+    figure { margin:0; background:var(--white); border:1px solid var(--line); border-radius:15px; overflow:hidden; }
+    figure img { display:block; width:100%; height:auto; }
+    figcaption { padding:15px 20px 20px; color:var(--muted); font-size:.9rem; }
+    .footnote { max-width:760px; margin-top:25px; color:var(--muted); font-size:.9rem; }
+    footer { border-top:1px solid var(--line); padding:30px 0; color:var(--muted); font-size:.9rem; }
+    @media (max-width:850px) { .grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:620px) { .top { align-items:flex-start; flex-direction:column; } .hero { padding:54px 0; } section { padding:52px 0; } .grid,.metrics,.charts { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap top">
+      <a class="brand" href="#top">Demand & competition</a>
+      <nav aria-label="Page sections">
+        <a href="#how-it-works">How it works</a>
+        <a href="#findings">Findings</a>
+        <a href="#charts">Charts</a>
+      </nav>
+    </div>
+  </header>
+  <main id="top">
+    <div class="hero">
+      <div class="wrap">
+        <p class="eyebrow">Project overview · Current stage: 17 October 2026</p>
+        <h1>What happens when three firms forecast demand and compete?</h1>
+        <p class="lead">They each choose how much of the same product to make. More combined production lowers the market price. This simulation follows their decisions as demand changes month by month.</p>
+        <span class="note">Simulation using synthetic demand, not real sales</span>
+      </div>
+    </div>
+
+    <section id="how-it-works" class="wrap">
+      <h2>How it works</h2>
+      <p class="section-intro">The project connects a demand forecast to a simple model of quantity competition.</p>
+      <div class="grid">
+        <div class="card"><span class="step">01 · DEMAND</span><h3>Create the market</h3><p>Generate 96 months of artificial demand with a rising trend, yearly seasons, and random shocks.</p></div>
+        <div class="card"><span class="step">02 · FORECAST</span><h3>Predict next month</h3><p>Learn from 72 months, then predict each of the next 24 months before its actual demand is revealed.</p></div>
+        <div class="card"><span class="step">03 · COMPETE</span><h3>Choose production</h3><p>Each of the three firms uses the forecast and its rivals' previous quantities. It moves 55% toward its preferred quantity.</p></div>
+        <div class="card"><span class="step">04 · MEASURE</span><h3>See the outcome</h3><p>Actual demand and total production set the price. The simulation calculates profits and compares quantities with the theoretical equilibrium.</p></div>
+      </div>
+    </section>
+
+    <section id="findings" class="band">
+      <div class="wrap">
+        <h2>What this stage shows</h2>
+        <p class="section-intro">These numbers come from the saved simulation results. Forecast errors use the main 24-month test; tracking distances compare three generated runs per scenario.</p>
+        <div class="metrics">
+          <div class="metric"><strong>1.65</strong><span>Forecast's average absolute error in the main test</span></div>
+          <div class="metric"><strong>3.72</strong><span>Error from using demand from the same month last year</span></div>
+          <div class="metric"><strong>15.66 → 32.94</strong><span>Average distance from equilibrium: baseline → more volatile demand</span></div>
+        </div>
+        <p class="footnote">When demand is held constant, the firms' quantities move toward the theoretical equilibrium. When demand changes, the equilibrium moves too, so the firms can lag behind it. These are outcomes of this model, not estimates from a real market.</p>
+      </div>
+    </section>
+
+    <section id="charts" class="wrap">
+      <h2>See the simulation</h2>
+      <p class="section-intro">The plots are generated by the Python project. Re-running it updates the images linked here.</p>
+      <div class="charts">
+        <figure><img src="../results/demand_forecast.png" alt="Actual synthetic demand and two one-month-ahead forecasts across the 96-month simulation" loading="lazy"><figcaption>The forecast follows changing synthetic demand and is compared with a same-month-last-year prediction.</figcaption></figure>
+        <figure><img src="../results/fixed_convergence.png" alt="Three firms' quantities approaching the same theoretical equilibrium under fixed demand" loading="lazy"><figcaption>With fixed demand, all three firms move toward the equilibrium quantity.</figcaption></figure>
+        <figure><img src="../results/moving_equilibrium.png" alt="Total production compared with the moving equilibrium as demand changes" loading="lazy"><figcaption>With changing demand, production follows a moving target.</figcaption></figure>
+        <figure><img src="../results/experiment_tracking.png" alt="Average distance from equilibrium for baseline and three changed-demand scenarios" loading="lazy"><figcaption>More volatile demand makes the moving equilibrium harder to track in these simulations.</figcaption></figure>
+      </div>
+      <p class="footnote">As the project grows, this page can be updated with new model assumptions, experiments, and findings. The <a href="../README.md">README</a> is the short written overview of this stage.</p>
+    </section>
+  </main>
+  <footer><div class="wrap">Demand forecasting & three-firm competition · Synthetic simulation · Stage saved 17 October 2026</div></footer>
+</body>
+</html>
