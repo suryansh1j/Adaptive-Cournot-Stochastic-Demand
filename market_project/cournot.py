@@ -27,8 +27,8 @@ def simulate(actual_intercepts, decision_intercepts, n_firms=3, slope=0.08,
         raise ValueError("Initial quantity must be nonnegative scalar or one value per firm")
     rows = []
     for t, (a, a_hat) in enumerate(zip(actual, decision)):
-        response = np.array([best_response(a_hat, old.sum() - old[i], slope, marginal_cost)
-                             for i in range(n_firms)])
+        unconstrained = (a_hat - marginal_cost - slope * (old.sum() - old)) / (2 * slope)
+        response = np.maximum(0.0, unconstrained)
         q = (1 - learning_rate) * old + learning_rate * response
         total = q.sum()
         price = a - slope * total
@@ -39,6 +39,7 @@ def simulate(actual_intercepts, decision_intercepts, n_firms=3, slope=0.08,
                      "equilibrium_quantity_per_firm": q_star,
                      "equilibrium_total_quantity": n_firms * q_star,
                      "distance_to_equilibrium": float(np.linalg.norm(q - q_star)),
+                     "best_responses_interior": bool(np.all(unconstrained > 0)),
                      **{f"firm_{i + 1}_quantity": q[i] for i in range(n_firms)},
                      **{f"firm_{i + 1}_profit": profits[i] for i in range(n_firms)}})
         old = q
