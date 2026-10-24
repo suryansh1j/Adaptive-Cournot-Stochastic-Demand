@@ -41,7 +41,8 @@
     "c": 12.0,
     "learning_rate": 0.55,
     "theoretical_quantity_per_firm": 228.125,
-    "initial_distance": 85.94318163036553,
+    "initial_distance": 280.3980151053142,
+    "distance_after_first_update": 85.94318163036553,
     "final_distance": 7.597137306397868e-10,
     "linear_update_eigenvalues": {
       "common_mode": -0.10000000000000009,

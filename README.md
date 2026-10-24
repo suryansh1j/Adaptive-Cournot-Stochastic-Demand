@@ -19,6 +19,8 @@ In the main 24-month test, the forecast's average absolute error was **1.65**, v
 
 These findings describe the simulation's assumptions and generated data; they are not estimates from a real market.
 
+The [literature review and next experiments](LITERATURE_REVIEW.md) explain how the current model relates to published work on Cournot adjustment, uncertain demand, and risk aversion. Its stability calculation concerns a fixed-demand market; the changing-demand equilibrium plotted here is a realized-demand benchmark.
+
 ## Run it
 
 ```powershell
@@ -27,4 +29,4 @@ python -m market_project.checks
 python -m market_project.run
 ```
 
-The last command regenerates `results/`. Open [`site/index.html`](site/index.html) to view the website page. The page contains a written snapshot of the current results, so update its findings when the model or generated results change.
+The last command regenerates `results/`. The committed results and [`site/index.html`](site/index.html) show the October 17 snapshot; numerical results can differ slightly across supported package versions. Refresh the site's written findings after regenerating the results.

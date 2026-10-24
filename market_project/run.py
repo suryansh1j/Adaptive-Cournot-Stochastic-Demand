@@ -73,8 +73,9 @@ def main(output_dir):
     save_plot(output_dir / "training_residuals.png", residual_plot)
 
     fixed_A = 85.0
+    fixed_initial = np.array([0.0, 80.0, 160.0])
     fixed = pd.DataFrame(simulate(np.full(80, fixed_A), np.full(80, fixed_A),
-                                  initial_quantity=[0.0, 80.0, 160.0]))
+                                  initial_quantity=fixed_initial))
     fixed.to_csv(output_dir / "fixed_demand_convergence.csv", index=False)
     def fixed_plot(ax):
         for i in range(1, 4):
@@ -110,7 +111,8 @@ def main(output_dir):
                 "mean_total_profit": game[[f"firm_{i}_profit" for i in range(1, 4)]].sum(axis=1).mean(),
                 "mean_price": game["price"].mean(),
                 "fit_converged": forecast["diagnostics"]["converged"],
-                "all_periods_interior": bool(np.min(path) > 12.0),
+                "positive_equilibrium_each_period": bool(np.min(forecast["actual"]) > 12.0),
+                "all_best_responses_interior": bool(game["best_responses_interior"].all()),
                 "fixed_demand_common_eigenvalue": stability["common_mode"],
                 "fixed_demand_difference_eigenvalue": stability["difference_mode"],
                 "fixed_demand_locally_stable": stability["stable_interior"],
@@ -122,7 +124,8 @@ def main(output_dir):
         sd_tracking_distance=("mean_equilibrium_distance", "std"),
         mean_forecast_mae=("forecast_mae", "mean"),
         mean_total_profit=("mean_total_profit", "mean"),
-        all_periods_interior=("all_periods_interior", "all"),
+        positive_equilibrium_each_period=("positive_equilibrium_each_period", "all"),
+        all_best_responses_interior=("all_best_responses_interior", "all"),
         fixed_demand_locally_stable=("fixed_demand_locally_stable", "all"),
     ).reset_index()
     summary.to_csv(output_dir / "experiment_summary.csv", index=False)
@@ -160,7 +163,8 @@ def main(output_dir):
         "fixed_demand": {
             "A": fixed_A, "n_firms": 3, "b": 0.08, "c": 12.0, "learning_rate": 0.55,
             "theoretical_quantity_per_firm": equilibrium(fixed_A),
-            "initial_distance": float(fixed["distance_to_equilibrium"].iloc[0]),
+            "initial_distance": float(np.linalg.norm(fixed_initial - equilibrium(fixed_A))),
+            "distance_after_first_update": float(fixed["distance_to_equilibrium"].iloc[0]),
             "final_distance": float(fixed["distance_to_equilibrium"].iloc[-1]),
             "linear_update_eigenvalues": stability_eigenvalues(),
         },

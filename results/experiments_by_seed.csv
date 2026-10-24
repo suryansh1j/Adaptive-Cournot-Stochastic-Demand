@@ -1,4 +1,4 @@
-scenario,seed,trend,seasonality,volatility,forecast_mae,baseline_mae,mean_equilibrium_distance,mean_total_profit,mean_price,fit_converged,all_periods_interior,fixed_demand_common_eigenvalue,fixed_demand_difference_eigenvalue,fixed_demand_locally_stable
+scenario,seed,trend,seasonality,volatility,forecast_mae,baseline_mae,mean_equilibrium_distance,mean_total_profit,mean_price,fit_converged,positive_equilibrium_each_period,fixed_demand_common_eigenvalue,fixed_demand_difference_eigenvalue,fixed_demand_locally_stable
 baseline,11,0.18,8.0,3.0,2.985761107813578,4.357434145388222,18.10081396707309,18782.12336110669,34.55553707140631,True,True,-0.10000000000000009,0.725,True
 baseline,23,0.18,8.0,3.0,2.401919623489294,5.240900550934539,15.18342308735933,18059.091282946134,34.11806016139609,True,True,-0.10000000000000009,0.725,True
 baseline,37,0.18,8.0,3.0,2.057361542746032,4.119710754188134,13.688170290374615,16955.09268613846,32.45998785657722,True,True,-0.10000000000000009,0.725,True

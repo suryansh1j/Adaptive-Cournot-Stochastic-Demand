@@ -1,4 +1,4 @@
-scenario,mean_tracking_distance,sd_tracking_distance,mean_forecast_mae,mean_total_profit,all_periods_interior,fixed_demand_locally_stable
+scenario,mean_tracking_distance,sd_tracking_distance,mean_forecast_mae,mean_total_profit,positive_equilibrium_each_period,fixed_demand_locally_stable
 baseline,15.65746911493568,2.244191565257399,2.481680758016301,17932.102443397092,True,True
 high_trend,16.090426838724536,2.222660048288063,2.4815878899227486,24608.175058516208,True,True
 high_seasonality,15.795462346404955,2.0383546192555255,2.481312460805268,18077.200331829965,True,True
